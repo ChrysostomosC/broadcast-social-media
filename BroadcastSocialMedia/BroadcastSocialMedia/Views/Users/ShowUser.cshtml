@@ -1,0 +1,15 @@
+﻿@model UsersShowUserViewModel
+
+<div>
+    <h1>Broadcasts from @Model.User.Name</h1>
+
+    @foreach (var broadcast in Model.Broadcasts)
+    {
+        <p>
+            <b>@broadcast.Published.ToShortDateString() @broadcast.Published.ToShortTimeString()</b>;
+            @*Opote twra 8a blepoume akoma kai thn wra kai thn hmeromhnia autou tou broadcast*@
+
+            @broadcast.Message
+        </p>
+    }
+</div>
