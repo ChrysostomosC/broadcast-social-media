@@ -23,7 +23,7 @@ namespace BroadcastSocialMedia.Controllers
             if (viewModel.Search != null)
             {
                 var users = await _dbContext.Users.Where(u => u.Name.Contains(viewModel.Search))
-                .ToListAsync();
+                    .ToListAsync();
 
                 viewModel.Result = users;
             }
@@ -31,7 +31,7 @@ namespace BroadcastSocialMedia.Controllers
             return View(viewModel);
         }
 
-        [Route("/Users/{Id}")]
+        [Route("/Users/{id}")]
         public async Task<IActionResult> ShowUser(string id)
         {
             var broadcasts = await _dbContext.Broadcasts.Where(b => b.User.Id == id)
@@ -39,7 +39,7 @@ namespace BroadcastSocialMedia.Controllers
                 .ToListAsync();
             var user = await _dbContext.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
 
-            var viewModel = new UsersShowUserViewModel
+            var viewModel = new UsersShowUserViewModel()
             {
                 Broadcasts = broadcasts,
                 User = user
