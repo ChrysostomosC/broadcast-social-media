@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BroadcastSocialMedia.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241223144246_AddedListeningTo")]
+    [Migration("20241224120341_AddedListeningTo")]
     partial class AddedListeningTo
     {
         /// <inheritdoc />

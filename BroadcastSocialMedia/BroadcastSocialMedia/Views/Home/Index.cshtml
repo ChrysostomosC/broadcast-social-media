@@ -1,4 +1,6 @@
-﻿@{
+﻿@model HomeIndexViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -7,8 +9,23 @@
 
     <h2>New Broadcast</h2>
 
-    <form action="/Home/Broadcast" method="post">
-            <textarea name="Message"></textarea> <br />
-            <input type="submit" value="post" />
+    <form method="post" action="/Home/Broadcast">
+        <textarea name="Message"></textarea> <br />
+        <input type="submit" value="Post" />
     </form>
+
+    <hr />
+
+    <h2>Broadcasts</h2>
+
+    @foreach (var broadcast in Model.Broadcasts)
+    {
+        <p>
+            <b>
+                @broadcast.User.Name
+                (@broadcast.Published.ToShortDateString() @broadcast.Published.ToShortTimeString())
+            </b>:
+            @broadcast.Message
+        </p>
+    }
 </div>
