@@ -16,6 +16,11 @@
             <input type="hidden" name="UserId" value="@Model.User.Id" />
             <input type="submit" value="Listen to" />
         </form>
+
+        <form action="/Users/Ignore" method="post">
+            <input type="hidden" name="UserId" value="@Model.User.Id" />
+            <input type="submit" value="Ignore" />
+        </form>
     }
 
     @foreach (var broadcast in Model.Broadcasts)

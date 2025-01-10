@@ -62,5 +62,20 @@ namespace BroadcastSocialMedia.Controllers
 
             return Redirect("/");
         }
+
+        [HttpPost, Route("/Users/Ignore")]
+        public async Task<IActionResult> IgnoreUser(UsersListenToUserViewModel viewModel)
+        {
+            var loggedInUser = await _userManager.GetUserAsync(User);
+            var userToIgnoreTo = await _dbContext.Users.Where(u => u.Id == viewModel.UserId)
+                .FirstOrDefaultAsync();
+
+            loggedInUser.ListeningTo.Remove(userToIgnoreTo);
+
+            await _userManager.UpdateAsync(loggedInUser);
+            await _dbContext.SaveChangesAsync();
+
+            return Redirect("/");
+        }
     }
 }
