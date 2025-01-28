@@ -65,6 +65,19 @@ namespace BroadcastSocialMedia.Controllers
                 User = user
             };
 
+            if (viewModel.Image != null && viewModel.Image.Length > 0) // This part is extra
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(viewModel.Image.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await viewModel.Image.CopyToAsync(stream);
+                }
+
+                broadcast.ImageUrl = "/uploads/" + fileName;
+            }
+
             _dbContext.Broadcasts.Add(broadcast);
 
             await _dbContext.SaveChangesAsync();

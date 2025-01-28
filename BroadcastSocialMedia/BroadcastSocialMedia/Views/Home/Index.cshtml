@@ -14,6 +14,13 @@
         <input type="submit" value="Post" />
     </form>
 
+    <form asp-action="/Home/Broadcast" method="post" enctype="multipart/form-data">
+        <textarea name="Message" class="form-control"></textarea>
+        <input type="file" name="Image" class="form-control" />
+        <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+
+
     <hr />
 
     <h2>Broadcasts</h2>
@@ -28,4 +35,16 @@
             @broadcast.Message
         </p>
     }
+
+    @foreach (var post in Model.Broadcasts)
+    {
+        <div class="post">
+            <p>@post.Message</p>
+            @if (!string.IsNullOrEmpty(post.ImageUrl))
+            {
+                <img src="@post.ImageUrl" alt="Post Image" class="img-fluid" />
+            }
+        </div>
+    }
+
 </div>

@@ -8,3 +8,15 @@
         <input type="submit" value="save" />
     </form>
 </div>
+
+<div> @* Uploading picture form *@
+    <form asp-action="UploadProfilePicture" method="post" enctype="multipart/form-data">
+        <input type="file" name="ProfileImage" class="form-control" />
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+
+    @if (!string.IsNullOrEmpty(Model.ProfilePicture))
+    {
+        <img src="@Model.ProfilePicture" alt="Profile Picture" class="img-thumbnail" />
+    }
+</div>

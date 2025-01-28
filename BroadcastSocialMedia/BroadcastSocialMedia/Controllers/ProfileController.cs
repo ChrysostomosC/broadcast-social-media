@@ -36,5 +36,29 @@ namespace BroadcastSocialMedia.Controllers
 
             return Redirect("/");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadProfilePicture(ProfileIndexViewModel viewModel)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return NotFound();
+
+            if (viewModel.ProfileImage != null && viewModel.ProfileImage.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(viewModel.ProfileImage.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await viewModel.ProfileImage.CopyToAsync(stream);
+                }
+
+                user.ProfilePicture = "/uploads/" + fileName;
+                await _userManager.UpdateAsync(user);
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }
